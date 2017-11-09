@@ -60,9 +60,8 @@ class RedditApiTest {
 
         Assert.assertEquals("elements returned", 5, subreddits.data.children.size)
         Assert.assertEquals("first element", "AskReddit", subreddits.data.children.first().data.display_name)
-        Assert.assertEquals("first element subscribers", 17724833, subreddits.data.children.first().data.subscribers)
-        Assert.assertEquals("last element", "funny", subreddits.data.children.last().data.display_name)
-        Assert.assertEquals("last subscribers", 17779487, subreddits.data.children.last().data.subscribers)
+        Assert.assertEquals("first element subscribers", 17728797, subreddits.data.children.first().data.subscribers)
+        Assert.assertEquals("last element", "news", subreddits.data.children.last().data.display_name)
 
         server.shutdown()
     }

@@ -1,5 +1,12 @@
 <resources>
 
+    <!--
+    Steps to using Toolbar
+    1) In styles.xml, parent=Theme.AppCompat.NoActionBar
+    2) In layout, use <android.support.v7.widget.Toolbar android:minHeight="?attr/actionBarSize"><LinearLayout ...>
+    3) In Java Activity, setSupportActionBar(findViewById(R.id.toolbar))
+    -->
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->

@@ -11,7 +11,8 @@ import com.googlejobapp.snoopin.redditApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.exceptions.OnErrorNotImplementedException
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.message
+import kotlinx.android.synthetic.main.activity_main.navigation
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
@@ -24,10 +25,36 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_home -> {
                 message.setText(R.string.title_home)
+
+                disposables.add(
+                        oauthApi.hotAndroiddev()
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({
+                                    val list = it.data.children.map { it.data }
+                                    val titles = list.map { it.title }.joinToString()
+                                    Log.d(TAG, "AndroidDev $titles")
+                                }, {
+                                    throw OnErrorNotImplementedException("ugh", it)
+                                })
+                )
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
                 message.setText(R.string.title_dashboard)
+
+                disposables.add(
+                        oauthApi.hotPics()
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({
+                                    val list = it.data.children.map { it.data }
+                                    val titles = list.map { it.title }.joinToString()
+                                    Log.d(TAG, "Pics $titles")
+                                }, {
+                                    throw OnErrorNotImplementedException("ugh", it)
+                                })
+                )
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
@@ -37,7 +64,9 @@ class MainActivity : AppCompatActivity() {
                         oauthApi.popularSubreddits()
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe({
-                                    Log.d(TAG, "success, got $it")
+                                    val list = it.data.children.map { it.data }
+                                    val titles = list.map { it.title }.joinToString()
+                                    Log.d(TAG, "Subreddits: $titles")
                                 }, {
                                     throw OnErrorNotImplementedException("ugh", it)
                                 })
