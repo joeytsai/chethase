@@ -1,9 +1,11 @@
-package com.googlejobapp.chethase
+package com.googlejobapp.chethase.ui
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.googlejobapp.chethase.R
+import com.googlejobapp.chethase.SharedPrefs
 import com.googlejobapp.snoopin.OauthRedditApi
 import com.googlejobapp.snoopin.createOauthRedditApi
 import com.googlejobapp.snoopin.deviceId

@@ -5,6 +5,7 @@ import okhttp3.Credentials
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import timber.log.Timber
 
 
 // True if we've failed 3 times
@@ -21,8 +22,14 @@ fun Response.giveUp(): Boolean {
 
 class ApplicationOnlyOAuth : Authenticator {
     override fun authenticate(route: Route, response: Response): Request? {
-        if (response.sameCredentials()) return null
-        if (response.giveUp()) return null
+        if (response.sameCredentials()) {
+            Timber.d("sameCredentials returns true")
+            return null
+        }
+        if (response.giveUp()) {
+            Timber.d("giveUp returns true")
+            return null
+        }
         return response.request().newBuilder()
                 .header(AuthorizationHeader, credentials)
                 .build()
