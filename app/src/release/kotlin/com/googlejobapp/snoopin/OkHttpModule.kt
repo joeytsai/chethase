@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
  * Provide HTTP client without debugging
  */
 @Module
-class HttpModule {
+class OkHttpModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()

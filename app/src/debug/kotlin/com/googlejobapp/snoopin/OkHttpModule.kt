@@ -9,7 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
  * Provide HTTP client with debugging hooks
  */
 @Module
-class HttpModule {
+class OkHttpModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
