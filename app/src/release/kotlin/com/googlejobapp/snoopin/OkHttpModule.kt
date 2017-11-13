@@ -12,6 +12,6 @@ class OkHttpModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
-            .authenticator(ApplicationOnlyOAuth())
+            .authenticator(ApplicationOnlyOauth())
             .build()
 }

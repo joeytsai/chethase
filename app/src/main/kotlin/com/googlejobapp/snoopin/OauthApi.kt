@@ -3,10 +3,11 @@ package com.googlejobapp.snoopin
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.util.UUID
 
-
-interface OauthRedditApi {
+/**
+ * Reddit API once authenticated via OAuth
+ */
+interface OauthApi {
     @GET("/subreddits/popular")
     fun popularSubreddits(@Query("limit") limit: Int = 5): Single<SubredditListingRes>
 
@@ -77,17 +78,8 @@ data class PreviewImageRes(
         val resolutions: List<SourceRes>
 )
 
-
 data class SourceRes(
         val url: String,
         val width: Int,
         val height: Int
 )
-
-
-const val USER_AGENT = "android:com.googlejobapp.chethase:v0.0.1 (by /u/thechickenbane)"
-
-fun deviceId() = UUID.randomUUID().toString()
-
-
-

@@ -18,7 +18,7 @@ class OkHttpModule {
 
         return OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .authenticator(ApplicationOnlyOAuth())
+                .authenticator(ApplicationOnlyOauth())
                 .build()
     }
 }

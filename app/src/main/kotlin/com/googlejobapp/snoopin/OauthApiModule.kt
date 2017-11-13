@@ -10,13 +10,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Scope
 
 /**
- * Created by joey on 11/12/17.
+ * Dagger 2 Module to provide OauthApi Retrofit service
  */
 @Module
-class OauthRedditApiModule {
+class OauthApiModule {
     @Provides
     @OauthScope
-    fun provideOauthRedditApi(okHttpClient: OkHttpClient, oauthInterceptor: OauthInterceptor): OauthRedditApi {
+    fun provideOauthApi(okHttpClient: OkHttpClient, oauthInterceptor: OauthInterceptor): OauthApi {
 
         val oauthClient = okHttpClient.newBuilder()
                 .addInterceptor(oauthInterceptor)
@@ -28,7 +28,7 @@ class OauthRedditApiModule {
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .build()
-        return oauthRetrofit.create(OauthRedditApi::class.java)
+        return oauthRetrofit.create(OauthApi::class.java)
     }
 
     companion object {

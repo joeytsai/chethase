@@ -2,25 +2,16 @@ package com.googlejobapp.snoopin
 
 import okhttp3.Authenticator
 import okhttp3.Credentials
+import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import timber.log.Timber
 
-
-// True if we've failed 3 times
-// https://github.com/square/okhttp/wiki/Recipes
-private fun Response.giveUp(): Boolean {
-    var responseCount = 0
-    var res: Response? = this
-    while (res != null) {
-        responseCount += 1
-        res = res.priorResponse()
-    }
-    return responseCount >= 3
-}
-
-class ApplicationOnlyOAuth : Authenticator {
+/**
+ * OkHttp Authenticator for ApplicationOnlyOauth and Interceptor for bearer token for Oauth
+ */
+class ApplicationOnlyOauth : Authenticator {
     override fun authenticate(route: Route, response: Response): Request? {
         if (response.sameCredentials()) {
             Timber.d("sameCredentials returns true")
@@ -36,8 +27,29 @@ class ApplicationOnlyOAuth : Authenticator {
     }
 }
 
-// TODO should be private?
-const val AUTHORIZATION_HEADER = "Authorization"
+class OauthInterceptor(private val token: String) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response = chain.proceed(
+            chain.request().newBuilder()
+                    .header(AUTHORIZATION_HEADER, "bearer $token")
+                    .build()
+    )
+}
+
+
+// True if we've failed 3 times
+// https://github.com/square/okhttp/wiki/Recipes
+private fun Response.giveUp(): Boolean {
+    var responseCount = 0
+    var res: Response? = this
+    while (res != null) {
+        responseCount += 1
+        res = res.priorResponse()
+    }
+    return responseCount >= 3
+}
+
+
+private const val AUTHORIZATION_HEADER = "Authorization"
 
 private fun Response.sameCredentials() = credentials == request().header(AUTHORIZATION_HEADER)
 

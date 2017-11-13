@@ -7,21 +7,21 @@ import com.googlejobapp.chethase.R
 import com.googlejobapp.chethase.daggerAppComponent
 import com.googlejobapp.chethase.daggerOauthComponent
 import com.googlejobapp.chethase.initDaggerOauthComponent
-import com.googlejobapp.snoopin.OauthRedditApi
-import com.googlejobapp.snoopin.deviceId
+import com.googlejobapp.snoopin.OauthApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.exceptions.OnErrorNotImplementedException
 import kotlinx.android.synthetic.main.activity_main.message
 import kotlinx.android.synthetic.main.activity_main.navigation
 import timber.log.Timber
+import java.util.UUID
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     private val disposables = CompositeDisposable()
 
 
-    @Inject lateinit var oauthApi: OauthRedditApi
+    @Inject lateinit var oauthApi: OauthApi
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        val deviceId = deviceId()
+        val deviceId = UUID.randomUUID().toString()
         Timber.d("onCreate: Calling RedditAPI deviceId=$deviceId")
         sharedPrefs.deviceId = deviceId
 

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * Created by joey on 11/12/17.
+ * Dagger 2 Module to provide OkHttp OauthInterceptor
  */
 @Module
 class OauthModule(private val token: String) {

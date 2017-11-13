@@ -4,10 +4,10 @@ import com.googlejobapp.chethase.ui.MainActivity
 import dagger.Subcomponent
 
 /**
- * Created by joey on 11/12/17.
+ * Dagger subcomponent when the client becomes authenticated
  */
 @OauthScope
-@Subcomponent(modules = arrayOf(OkHttpModule::class, OauthModule::class, OauthRedditApiModule::class))
+@Subcomponent(modules = arrayOf(OauthModule::class, OauthApiModule::class))
 interface OauthComponent {
     fun inject(mainActivity: MainActivity)
 }
