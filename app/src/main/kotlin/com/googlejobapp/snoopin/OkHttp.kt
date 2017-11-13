@@ -10,7 +10,7 @@ import timber.log.Timber
 
 // True if we've failed 3 times
 // https://github.com/square/okhttp/wiki/Recipes
-fun Response.giveUp(): Boolean {
+private fun Response.giveUp(): Boolean {
     var responseCount = 0
     var res: Response? = this
     while (res != null) {
@@ -31,20 +31,21 @@ class ApplicationOnlyOAuth : Authenticator {
             return null
         }
         return response.request().newBuilder()
-                .header(AuthorizationHeader, credentials)
+                .header(AUTHORIZATION_HEADER, credentials)
                 .build()
     }
 }
 
-const val AuthorizationHeader = "Authorization"
+// TODO should be private?
+const val AUTHORIZATION_HEADER = "Authorization"
 
-fun Response.sameCredentials() = credentials == request().header(AuthorizationHeader)
+private fun Response.sameCredentials() = credentials == request().header(AUTHORIZATION_HEADER)
 
 
 // https://www.reddit.com/prefs/apps
-const val CLIENT_ID = "4Gg_1JUp5dT70g"
+private const val CLIENT_ID = "4Gg_1JUp5dT70g"
 // Android apps are Reddit's "Installed App" type, which do not have client secrets
-const val CLIENT_SECRET = ""
+private const val CLIENT_SECRET = ""
 
-val credentials: String = Credentials.basic(CLIENT_ID, CLIENT_SECRET)
+private val credentials: String = Credentials.basic(CLIENT_ID, CLIENT_SECRET)
 

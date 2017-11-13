@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.googlejobapp.chethase.R
 import com.googlejobapp.chethase.SharedPrefs
+import com.googlejobapp.chethase.daggerAppComponent
 import com.googlejobapp.snoopin.OauthRedditApi
 import com.googlejobapp.snoopin.createOauthRedditApi
 import com.googlejobapp.snoopin.deviceId
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sharedPrefs = SharedPrefs(this)
+        val sharedPrefs: SharedPrefs = daggerAppComponent().sharedPrefs()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 

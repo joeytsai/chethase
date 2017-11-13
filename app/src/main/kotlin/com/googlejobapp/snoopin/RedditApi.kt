@@ -123,7 +123,7 @@ const val OAUTH_BASE_URL = "https://oauth.reddit.com"
 class OauthInt(val token: String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response = chain.proceed(
             chain.request().newBuilder()
-                    .header(AuthorizationHeader, "bearer $token")
+                    .header(AUTHORIZATION_HEADER, "bearer $token")
                     .build()
     )
 }

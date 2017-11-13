@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 /**
- * Created by joey on 8/7/17.
+ * SharedPreferences for the entire application lifecycle
  */
 class SharedPrefs(context: Context) {
     private val prefs: SharedPreferences = context.applicationContext.getSharedPreferences(NAME, Context.MODE_PRIVATE)
