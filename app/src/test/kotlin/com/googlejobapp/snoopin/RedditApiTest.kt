@@ -3,7 +3,7 @@ package com.googlejobapp.snoopin
 import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -14,17 +14,17 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  */
 class RedditApiTest {
 
-    private fun oauthRedditApi(baseUrl: HttpUrl): OauthRedditApi {
+    private fun oauthRedditApi(baseUrl: HttpUrl): OauthApi {
         val retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
 
-        return retrofit.create(OauthRedditApi::class.java)
+        return retrofit.create(OauthApi::class.java)
     }
 
-    fun file2string(file: String): String {
+    private fun file2string(file: String): String {
         val inputStream = javaClass.classLoader.getResourceAsStream(file)
         return inputStream.bufferedReader().use { it.readText() }
     }
@@ -39,11 +39,11 @@ class RedditApiTest {
         val api = oauthRedditApi(baseUrl)
         val subreddits = api.popularSubreddits().blockingGet()
 
-        Assert.assertEquals("elements returned", 5, subreddits.data.children.size)
-        Assert.assertEquals("first element", "AskReddit", subreddits.data.children.first().data.display_name)
-        Assert.assertEquals("first subscribers", 17723258, subreddits.data.children.first().data.subscribers)
-        Assert.assertEquals("last element", "funny", subreddits.data.children.last().data.display_name)
-        Assert.assertEquals("last subscribers", 17777207, subreddits.data.children.last().data.subscribers)
+        assertEquals("elements returned", 5, subreddits.data.children.size)
+        assertEquals("first element", "AskReddit", subreddits.data.children.first().data.display_name)
+        assertEquals("first subscribers", 17723258, subreddits.data.children.first().data.subscribers)
+        assertEquals("last element", "funny", subreddits.data.children.last().data.display_name)
+        assertEquals("last subscribers", 17777207, subreddits.data.children.last().data.subscribers)
 
         server.shutdown()
     }
@@ -58,10 +58,10 @@ class RedditApiTest {
         val api = oauthRedditApi(baseUrl)
         val subreddits = api.popularSubreddits().blockingGet()
 
-        Assert.assertEquals("elements returned", 5, subreddits.data.children.size)
-        Assert.assertEquals("first element", "AskReddit", subreddits.data.children.first().data.display_name)
-        Assert.assertEquals("first element subscribers", 17728797, subreddits.data.children.first().data.subscribers)
-        Assert.assertEquals("last element", "news", subreddits.data.children.last().data.display_name)
+        assertEquals("elements returned", 5, subreddits.data.children.size)
+        assertEquals("first element", "AskReddit", subreddits.data.children.first().data.display_name)
+        assertEquals("first element subscribers", 17728797, subreddits.data.children.first().data.subscribers)
+        assertEquals("last element", "news", subreddits.data.children.last().data.display_name)
 
         server.shutdown()
     }

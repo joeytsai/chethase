@@ -7,13 +7,13 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Scope
 
 /**
  * Dagger 2 Module to provide OauthApi Retrofit service
  */
 @Module
 class OauthApiModule {
+
     @Provides
     @OauthScope
     fun provideOauthApi(okHttpClient: OkHttpClient, oauthInterceptor: OauthInterceptor): OauthApi {
@@ -35,6 +35,3 @@ class OauthApiModule {
         val OAUTH_BASE_URL = "https://oauth.reddit.com"
     }
 }
-
-@Scope
-annotation class OauthScope

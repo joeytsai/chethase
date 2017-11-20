@@ -10,6 +10,7 @@ import javax.inject.Singleton
  */
 @Module
 class SharedPrefsModule {
+
     @Provides
     @Singleton
     fun provideSharedPrefs(context: Context) = SharedPrefs(context)
